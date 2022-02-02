@@ -44,7 +44,7 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
         return videoCrates;
       } else {
         console.log("ERROR: " + x);
-        console.log("Directory? ", fs.statSync(path.join(subcratesFolder, x).isDirectory())
+        console.log("Directory? " + fs.statSync(path.join(subcratesFolder, x)).isDirectory())
       }
     });
     let flattenedCrates = [].concat(...crates);
