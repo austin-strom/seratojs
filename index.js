@@ -36,7 +36,7 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
       if(path.extname(x) === ".crate"){ 
         const name = path.basename(x, ".crate");
         return new Crate(name, seratoFolder);
-      } else if(path.basename(x) === "Video" && fs.statSync(x).isDirectory()){
+      } else if(path.basename(x) === "Videos" && fs.statSync(path.join(subcratesFolder, x).isDirectory()){
         const videoCrates = fs.readdirSync(x).map((elem) => {
           const name = path.basename(x, ".crate");
           return new Crate(name, seratoFolder);
@@ -44,9 +44,13 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
         return videoCrates;
       } else {
         console.log("ERROR: " + x);
+        console.log("Directory? ", fs.statSync(path.join(subcratesFolder, x).isDirectory())
       }
     });
-    const flattenedCrates = [].concat(...crates);
+    let flattenedCrates = [].concat(...crates);
+    flattenedCrates = flattenedCrates.filter(function( element ) {
+      return element !== undefined;
+    });
     allCrates.push(...flattenedCrates);
   });
   return allCrates;
