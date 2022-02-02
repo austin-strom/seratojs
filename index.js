@@ -41,12 +41,13 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
           const name = path.basename(x, ".crate");
           return new Crate(name, seratoFolder);
         });
-        return ...videoCrates;
+        return videoCrates;
       } else {
         console.log("ERROR: " + x);
       }
     });
-    allCrates.push(...crates);
+    const flattenedCrates = [].concat(...crates);
+    allCrates.push(...flattenedCrates);
   });
   return allCrates;
 }
