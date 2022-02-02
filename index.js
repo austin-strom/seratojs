@@ -33,8 +33,10 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
   seratoFolders.forEach((seratoFolder) => {
     const subcratesFolder = getSubcratesFolder(seratoFolder);
     const crates = fs.readdirSync(subcratesFolder).map((x) => {
-      const name = path.basename(x, ".crate");
-      return new Crate(name, seratoFolder);
+      if(path.extname(x) === ".crate"){ 
+        const name = path.basename(x, ".crate");
+        return new Crate(name, seratoFolder);
+      }
     });
     allCrates.push(...crates);
   });
@@ -47,8 +49,10 @@ async function listCrates(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
     const subcratesFolder = getSubcratesFolder(seratoFolder);
     const files = await util.promisify(fs.readdir)(subcratesFolder);
     const crates = files.map((x) => {
-      const name = path.basename(x, ".crate");
-      return new Crate(name, seratoFolder);
+      if(path.extname(x) === ".crate"){
+        const name = path.basename(x, ".crate");
+        return new Crate(name, seratoFolder);
+      }
     });
     allCrates.push(...crates);
   }
