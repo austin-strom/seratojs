@@ -38,12 +38,18 @@ function listCratesSync(seratoFolders = [PLATFORM_DEFAULT_SERATO_FOLDER]) {
         return new Crate(name, seratoFolder);
       } else if(path.basename(x) === "Videos" && fs.statSync(path.join(subcratesFolder, x)).isDirectory()){
         console.log("Found video folder");
-        const videoCrates = fs.readdirSync(path.join(subcratesFolder, x)).map((elem) => {
+        /*const videoCrates = fs.readdirSync(path.join(subcratesFolder, x)).map((elem) => {
           console.log("Found video crate with name " + elem);
           const name = path.basename(elem, ".crate");
+          let duplicate = false;
+          for(let crate of crates){
+            if(crate.name === name){
+                
+            }
+          }
           return new Crate(name, seratoFolder);
         });
-        return videoCrates;
+        return videoCrates;*/
       } else {
         console.log("ERROR: " + x);
         console.log("Directory? " + fs.statSync(path.join(subcratesFolder, x)).isDirectory())
